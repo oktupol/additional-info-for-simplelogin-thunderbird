@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Additional Info for Simplelogin",
+  "description": "Displays additional information for e-mails forwarded by Simplelogin. This is not an official addon and I am not affiliated with Simplelogin.",
+  "version": "1.0",
+  "author": "Sebastian Wieland <",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "simplelogin@sebastianwie.land",
+      "strict_min_version": "78.0"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "message_display_action": {
+    "default_title": "Simplelogin",
+    "default_icon": "images/simplelogin.svg",
+    "default_popup": "messagePopup/popup.html"
+  },
+  "permissions": [
+    "messagesRead"
+  ],
+  "icons": {
+    "64": "images/simplelogin.svg",
+    "32": "images/simplelogin.svg",
+    "16": "images/simplelogin.svg"
+  }
+}

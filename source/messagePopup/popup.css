@@ -1,0 +1,34 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#not-forwarded {
+  display: none;
+}
+
+body.not-forwarded #not-forwarded {
+  display: block;
+}
+
+body.not-forwarded #info {
+  display: none;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: .3em;
+  column-gap: 2em;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: 0;
+}
+
+dl a {
+  grid-column: 2;
+}
