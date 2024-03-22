@@ -3,9 +3,6 @@ messenger.messageDisplay.onMessageDisplayed.addListener(async (tab, message) => 
   
   let isForwarded = full.headers.hasOwnProperty("x-simplelogin-type") && full.headers["x-simplelogin-type"][0] === "Forward";
   
-  console.log("Forward? " + isForwarded)
-  console.log(messenger.messageDisplayAction);
-  
   if (isForwarded) {
     messenger.messageDisplayAction.enable();
   } else {

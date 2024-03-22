@@ -11,6 +11,10 @@ In a new pop-up above the message pane, a button appears. When clicked, a pop-up
 - The alias to which the e-mail was originally sent to
 - The address to which the e-mail was then forwarded to.
 
+## Installation from the Mozilla Thunderbird Add-On Store
+
+This plugin is published and can be installed by anyone here: https://addons.thunderbird.net/en-US/thunderbird/addon/additional-info-simplelogin/
+
 ## Building
 
 To build form source, run:
