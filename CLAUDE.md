@@ -28,7 +28,8 @@ Both scripts use the same check to detect a forward: `x-simplelogin-type` equals
 - `x-simplelogin-envelope-from` → original sender. This header only exists if the user enabled "Include original sender in email headers" in SimpleLogin, so it falls back to `"unknown"`.
 - `x-simplelogin-envelope-to` → alias
 - `delivered-to` → final mailbox
-- `list-unsubscribe` → used to build a mailto link that disables the alias
+- `x-simplelogin-unsub-behaviour` → decides what `list-unsubscribe` means. With `original-behaviour` it is the sender's own header (often absent). Otherwise (`alias-disable`, or older mails without the header) it is SimpleLogin's mailto link that disables the alias, and the sender's header is moved to `x-simplelogin-original-list-unsubscribe`.
+- The popup shows up to two links, "Disable this alias" and "Unsubscribe from the sender's list", and each one only appears when its URL is available.
 
 `github/` holds the README screenshots only.
 
