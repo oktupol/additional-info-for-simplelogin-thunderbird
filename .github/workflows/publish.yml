@@ -1,0 +1,45 @@
+name: Publish to ATN
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check manifest version matches release tag
+        run: |
+          manifest_version=$(jq -r .version source/manifest.json)
+          tag_version="${GITHUB_REF_NAME#v}"
+          if [ "$manifest_version" != "$tag_version" ]; then
+            echo "::error::manifest.json version ($manifest_version) does not match release tag ($GITHUB_REF_NAME)"
+            exit 1
+          fi
+
+      - name: Build
+        id: web-ext-build
+        uses: kewisch/action-web-ext@v2
+        with:
+          cmd: build
+          source: source
+
+      - name: Sign and upload to ATN
+        uses: kewisch/action-web-ext@v2
+        with:
+          cmd: sign
+          source: ${{ steps.web-ext-build.outputs.target }}
+          channel: listed
+          apiUrlPrefix: "https://addons.thunderbird.net/api/v4"
+          apiKey: ${{ secrets.ATN_SIGN_KEY }}
+          apiSecret: ${{ secrets.ATN_SIGN_SECRET }}
+
+      - name: Attach XPI to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" "${{ steps.web-ext-build.outputs.target }}"
+
+    permissions:
+      contents: write
