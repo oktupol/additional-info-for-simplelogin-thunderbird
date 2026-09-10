@@ -34,7 +34,8 @@ function showLink(selector, href) {
   if (!full.headers.hasOwnProperty("x-simplelogin-type") || full.headers["x-simplelogin-type"][0] !== "Forward") {
     document.querySelector("body").classList.add("not-forwarded");
   } else {
-    let from = full.headers.hasOwnProperty("x-simplelogin-envelope-from") ? full.headers["x-simplelogin-envelope-from"][0] : "unknown";
+    // Older mails only have x-simplelogin-envelope-from, which is often a bounce address.
+    let from = firstHeader(full.headers, "x-simplelogin-original-from") || firstHeader(full.headers, "x-simplelogin-envelope-from") || "unknown";
     let to = full.headers["x-simplelogin-envelope-to"][0];
     let deliveredTo = full.headers["delivered-to"][0];
 

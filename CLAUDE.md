@@ -25,7 +25,7 @@ There are two independent scripts. Both use the `messenger.*` API and the `messa
 - `source/messagePopup/popup.js` runs when the button is clicked. It gets the displayed message for the active tab and reads its headers. It fills the `<dl>` in `popup.html` or adds the `not-forwarded` class to `<body>` (and `popup.css` toggles which block is shown).
 
 Both scripts use the same check to detect a forward: `x-simplelogin-type` equals `"Forward"`. It is duplicated, so keep the two copies in sync. The popup reads these headers:
-- `x-simplelogin-envelope-from` → original sender. This header only exists if the user enabled "Include original sender in email headers" in SimpleLogin, so it falls back to `"unknown"`.
+- `x-simplelogin-original-from` → original sender (e.g. `Name <address>`). Older mails only have `x-simplelogin-envelope-from`, which is used as a fallback and is often a bounce address. If neither is present, the popup shows `"unknown"`.
 - `x-simplelogin-envelope-to` → alias
 - `delivered-to` → final mailbox
 - `x-simplelogin-unsub-behaviour` → decides what `list-unsubscribe` means. With `original-behaviour` it is the sender's own header (often absent). Otherwise (`alias-disable`, or older mails without the header) it is SimpleLogin's mailto link that disables the alias, and the sender's header is moved to `x-simplelogin-original-list-unsubscribe`.
